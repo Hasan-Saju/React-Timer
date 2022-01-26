@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { TimerContext } from './TimerContext';
+import React, { useState, useEffect, useContext } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { TimerContext } from "./TimerContext";
 
-const StopWatch = (props) => {
+const Clock = (props) => {
   const [stoptime, setStoptime] = useState(true);
   const [triggerAfterSecond, setTriggerAfterSecond] = useState(true);
   const [timerList, setTimerList] = useContext(TimerContext);
@@ -16,7 +16,7 @@ const StopWatch = (props) => {
 
   useEffect(() => {
     if (!stoptime) {
-      console.log('timer is running');
+      console.log("timer is running");
 
       timerCycle();
 
@@ -24,9 +24,31 @@ const StopWatch = (props) => {
         setTriggerAfterSecond(!triggerAfterSecond);
       }, 1000);
     } else {
-      console.log('timer is stopped');
+      console.log("timer is stopped");
     }
   }, [stoptime, triggerAfterSecond]);
+
+  function hour(hr, min) {
+    if (min === 59) {
+      return hr + 1;
+    } else return hr;
+  }
+
+  function minute(min, sec) {
+    if (min === 59) {
+      return 0;
+    } else if (sec == 59) {
+      return min + 1;
+    } else return min;
+  }
+
+  function second(min, sec) {
+    if (sec == 59 || min == 59) {
+      return 0;
+    } else {
+      return sec + 1;
+    }
+  }
 
   const timerCycle = () => {
     if (stoptime === false) {
@@ -35,21 +57,20 @@ const StopWatch = (props) => {
           props.id === index
             ? {
                 ...timer,
-                hour:
-                  toBeEditedTimerList[props.id].min === 59
-                    ? toBeEditedTimerList[props.id].hour + 1
-                    : toBeEditedTimerList[props.id].hour,
-                min:
-                  toBeEditedTimerList[props.id].min === 59
-                    ? 0
-                    : toBeEditedTimerList[props.id].sec === 59
-                    ? toBeEditedTimerList[props.id].min + 1
-                    : toBeEditedTimerList[props.id].min,
-                sec:
-                  toBeEditedTimerList[props.id].sec === 59 ||
-                  toBeEditedTimerList[props.id].min === 59
-                    ? 0
-                    : toBeEditedTimerList[props.id].sec + 1,
+                hour: hour(
+                  toBeEditedTimerList[props.id].hour,
+                  toBeEditedTimerList[props.id].min
+                ),
+
+                min: minute(
+                  toBeEditedTimerList[props.id].min,
+                  toBeEditedTimerList[props.id].sec
+                ),
+
+                sec: second(
+                  toBeEditedTimerList[props.id].min,
+                  toBeEditedTimerList[props.id].sec
+                ),
               }
             : timer
         )
@@ -94,11 +115,12 @@ const StopWatch = (props) => {
       </div>
       <div className='timer__rowThree'>
         <div
-          style={{ marginRight: '0.2em', cursor: 'pointer' }}
-          onClick={deleteTimer}>
+          style={{ marginRight: "0.2em", cursor: "pointer" }}
+          onClick={deleteTimer}
+        >
           <DeleteIcon />
         </div>
-        <div style={{ cursor: 'pointer' }} onClick={props.changeEditMode}>
+        <div style={{ cursor: "pointer" }} onClick={props.changeEditMode}>
           <EditIcon />
         </div>
       </div>
@@ -116,4 +138,4 @@ const StopWatch = (props) => {
   );
 };
 
-export default StopWatch;
+export default Clock;

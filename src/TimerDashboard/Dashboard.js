@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import TimerList from "../TimerList/TimerList";
-import { TimerContext } from "../TimerContext";
-import Form from "../Form";
+import { TimerContext } from "../Components/TimerContext";
+import Form from "../Components/Form";
 
 import "./TimerDashboard.css";
 
-const TimerDashboard = () => {
+const Dashboard = () => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [project, setProject] = useState("");
@@ -67,4 +67,4 @@ const TimerDashboard = () => {
   );
 };
 
-export default TimerDashboard;
+export default Dashboard;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import './Timer.css';
-import Form from '../Form';
-import StopWatch from '../StopWatch';
+import "./Timer.css";
+import Form from "../Components/Form";
+import Clock from "../Components/Clock";
 
 const Timer = (props) => {
   let toBeEditedTimerList = [...props.timerList];
@@ -51,7 +51,7 @@ const Timer = (props) => {
           closeForm={changeEditMode}
         />
       ) : (
-        <StopWatch
+        <Clock
           title={props.title}
           project={props.project}
           changeEditMode={changeEditMode}
