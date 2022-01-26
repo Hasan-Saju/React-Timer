@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Form = (props) => {
   return (
@@ -28,11 +28,12 @@ const Form = (props) => {
           className='timer'
           className='timerEdit__update'
           type='submit'
-          onClick={props.handleSubmit}>
-          {props.creation ? 'Create' : 'Update'}
+          onClick={props.handleSubmit}
+        >
+          <b>{props.creation ? "Create" : "Update"}</b>
         </div>
         <div className='timerEdit__cancel' onClick={props.closeForm}>
-          Cancel
+          <b>Cancel</b>
         </div>
       </div>
     </div>
